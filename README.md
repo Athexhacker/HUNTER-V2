@@ -37,7 +37,7 @@ With Hunter, you can easily know much about your victims, and plan a successful 
 
 # **Installation and usage**:
 ```bash
-git clone https://github.com/Athexhacker/HUNTER2.git
+git clone https://github.com/Athexhacker/HUNTER-v2.git
 ```
 ```
 cd HUNTER
@@ -94,6 +94,7 @@ _Happy Hunting Victims Informations_\
 🚀🚀🚀!.
 
 </div>
+
 
 
 
