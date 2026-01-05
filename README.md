@@ -2,7 +2,7 @@
 
 <a href="https://github.com/Athexhacker/HUNTER"><img src="hunter.png" alt="02" border="0" /></a> 
 
-![Geo-Phone](https://img.shields.io/badge/version-v[1.0.6]-blue.svg) 
+![Geo-Phone](https://img.shields.io/badge/version-v[2.0]-blue.svg) 
 
 
 
@@ -37,19 +37,19 @@ With Hunter, you can easily know much about your victims, and plan a successful 
 
 # **Installation and usage**:
 ```bash
-git clone https://github.com/Athexhacker/HUNTER-v2.git
+git clone https://github.com/Athexhacker/HUNTER-V2.git
 ```
 ```
-cd HUNTER
+cd HUNTER-V2
 ```
 ```
-sed -i 's/\r$//' run.sh
+sed -i 's/\r$//' hunter.sh
 ```
 ```
-chmod u+x run.sh
+chmod u+x hunter.sh
 ```
 ```
-./run.sh
+./hunter.sh
 ```
 
 # **Template served by Hunter**:
@@ -94,6 +94,7 @@ _Happy Hunting Victims Informations_\
 🚀🚀🚀!.
 
 </div>
+
 
 
 
