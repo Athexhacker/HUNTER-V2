@@ -1,0 +1,17 @@
+# Update package list
+sudo apt update
+
+# Install PHP (already installed on Kali by default, but just in case)
+sudo apt install -y php
+
+# Install SSH client (already installed on Kali)
+sudo apt install -y ssh openssh-client
+
+# Install Node.js and npm for LocalTunnel
+sudo apt install -y nodejs npm
+
+# Install dos2unix to prevent future line ending issues
+sudo apt install -y dos2unix
+
+# Install xdg-utils for opening URLs
+sudo apt install -y xdg-utils
